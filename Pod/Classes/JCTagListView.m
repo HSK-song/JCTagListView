@@ -8,6 +8,25 @@
 
 #import "JCTagListView.h"
 
+@implementation JCCollectionView
+
+// dynamic collection view size
+- (void)layoutSubviews {
+    [super layoutSubviews];
+
+    if (!CGSizeEqualToSize(self.bounds.size, [self intrinsicContentSize])) {
+        [self invalidateIntrinsicContentSize];
+    }
+}
+
+- (CGSize)intrinsicContentSize {
+    CGSize intrinsicContentSize = self.contentSize;
+    
+    return intrinsicContentSize;
+}
+
+@end
+
 @interface JCTagListView ()<UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (nonatomic, copy) JCTagListViewBlock selectedBlock;
@@ -36,8 +55,6 @@ static NSString * const reuseIdentifier = @"tagListViewItemId";
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    
-    self.collectionView.frame = self.bounds;
 }
 
 - (void)setup {
@@ -54,6 +71,13 @@ static NSString * const reuseIdentifier = @"tagListViewItemId";
     _tagCornerRadius = 10.0f;
     
    [self addSubview:self.collectionView];
+    _collectionView.translatesAutoresizingMaskIntoConstraints = NO;
+    [NSLayoutConstraint activateConstraints:@[
+                                              [_collectionView.leftAnchor constraintEqualToAnchor:self.leftAnchor],
+                                              [_collectionView.rightAnchor constraintEqualToAnchor:self.rightAnchor],
+                                              [_collectionView.topAnchor constraintEqualToAnchor:self.topAnchor],
+                                              [_collectionView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
+                                              ]];
 }
 
 - (void)setCompletionBlockWithSelected:(JCTagListViewBlock)completionBlock {
@@ -121,7 +145,7 @@ static NSString * const reuseIdentifier = @"tagListViewItemId";
     if (!_collectionView) {
         JCCollectionViewTagFlowLayout *layout = [[JCCollectionViewTagFlowLayout alloc] init];
         
-        _collectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:layout];
+        _collectionView = [[JCCollectionView alloc] initWithFrame:self.bounds collectionViewLayout:layout];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
         _collectionView.scrollEnabled = NO;

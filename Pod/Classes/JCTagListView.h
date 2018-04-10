@@ -15,6 +15,10 @@
 typedef void (^JCTagListViewBlock)(NSInteger index);
 
 IB_DESIGNABLE
+@interface JCCollectionView : UICollectionView
+
+@end
+
 @interface JCTagListView : UIView
 
 @property (nonatomic, strong) IBInspectable UIColor *tagStrokeColor; // default: lightGrayColor
@@ -31,7 +35,7 @@ IB_DESIGNABLE
 @property (nonatomic, strong) NSMutableArray *tags;
 @property (nonatomic, strong) NSMutableArray *selectedTags;
 
-@property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) JCCollectionView *collectionView;
 
 - (void)setCompletionBlockWithSelected:(JCTagListViewBlock)completionBlock;
 

@@ -9,6 +9,7 @@
 #import "JCViewController.h"
 #import "JCTagListView.h"
 #import "JCTableViewController.h"
+#import "JCScrollViewController.h"
 
 @interface JCViewController ()
 
@@ -39,6 +40,13 @@
     NSLog(@"\n\n🍀🍀🍀 The warnings in the console can be ignored, the actual use of lib will not exist. 🍀🍀🍀");
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    UIBarButtonItem *scrollView = [[UIBarButtonItem alloc] initWithTitle:@"scrollView" style:UIBarButtonItemStylePlain target:self action:@selector(tapScrollView)];
+    
+    self.navigationItem.rightBarButtonItems = [self.navigationItem.rightBarButtonItems arrayByAddingObject:scrollView];
+}
+
 #pragma mark - IBAction
 
 - (IBAction)delete:(id)sender {
@@ -53,5 +61,8 @@
     
     [self.navigationController pushViewController:tableVC animated:YES];
 }
-
+- (void)tapScrollView {
+    
+    [self.navigationController pushViewController:[JCScrollViewController new] animated:YES];
+}
 @end
