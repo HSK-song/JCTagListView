@@ -38,13 +38,14 @@
     }];
     
     NSLog(@"\n\n🍀🍀🍀 The warnings in the console can be ignored, the actual use of lib will not exist. 🍀🍀🍀");
+    
+    UIBarButtonItem *scrollView = [[UIBarButtonItem alloc] initWithTitle:@"scrollView" style:UIBarButtonItemStylePlain target:self action:@selector(tapScrollView)];
+    
+    self.navigationItem.rightBarButtonItems = [self.navigationItem.rightBarButtonItems arrayByAddingObject:scrollView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    UIBarButtonItem *scrollView = [[UIBarButtonItem alloc] initWithTitle:@"scrollView" style:UIBarButtonItemStylePlain target:self action:@selector(tapScrollView)];
-    
-    self.navigationItem.rightBarButtonItems = [self.navigationItem.rightBarButtonItems arrayByAddingObject:scrollView];
 }
 
 #pragma mark - IBAction
